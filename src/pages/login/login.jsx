@@ -11,8 +11,6 @@ export default class Login extends Component {
     formRef = React.createRef()
     /*
    用户名/密码的的合法性要求
-
-   
      1). 必须输入
      2). 必须大于等于4位
      3). 必须小于等于12位
