@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import './login.less'
 import logo from '@/static/image/logo.png'
-import {Form, Input, Button} from 'antd';
-import {UserOutlined, LockOutlined} from '@ant-design/icons'
-import {login} from '@/api/login'
+import { Form, Input, Button } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { login } from '@/api/login'
 /*
 * 登录的路由组件
 * */
@@ -11,6 +11,8 @@ export default class Login extends Component {
     formRef = React.createRef()
     /*
    用户名/密码的的合法性要求
+
+   
      1). 必须输入
      2). 必须大于等于4位
      3). 必须小于等于12位
@@ -45,7 +47,7 @@ export default class Login extends Component {
 
     onFinish = values => {
         console.log(values)
-        login(values).then(res=>{
+        login(values).then(res => {
             console.log(res)
         })
     }
@@ -57,7 +59,7 @@ export default class Login extends Component {
         console.log(this.formRef)
         this.formRef.current.validateFields().then(value => {
             console.log('校验通过', value)
-            login(value).then(res=>{
+            login(value).then(res => {
                 console.log(res)
             })
         }).catch(errInfo => {
@@ -72,12 +74,12 @@ export default class Login extends Component {
         //     wrapperCol: {span: 16},
         // };
         const tailLayout = {
-            wrapperCol: {offset: 0, span: 24},
+            wrapperCol: { offset: 0, span: 24 },
         };
         return (
             <div className='login'>
                 <header className='login-header'>
-                    <img src={logo} alt=""/>
+                    <img src={logo} alt="" />
                     <h1>React:后台管理项目</h1>
                 </header>
                 <section className='login-section'>
@@ -97,7 +99,7 @@ export default class Login extends Component {
                             name="username"
                             rules={this.initRules('用户名')}
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Username"/>
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                         </Form.Item>
                         <Form.Item
                             validateFirst={true}
@@ -120,14 +122,14 @@ export default class Login extends Component {
                         >
                             <Input.Password
                                 autoComplete={'on'}
-                                prefix={<LockOutlined className="site-form-item-icon"/>}
+                                prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
                                 placeholder="Password"
                             />
                         </Form.Item>
                         <Form.Item {...tailLayout}>
                             <Button onClick={this.submitInfo} type="primary" htmlType="submit"
-                                    className="login-form-button">
+                                className="login-form-button">
                                 Log in
                             </Button>
                         </Form.Item>
