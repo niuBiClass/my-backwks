@@ -39,4 +39,4 @@ const BabelImport = fixBabelImports(
         style: true, //自动打包相关样式
     }
 )
-module.exports = override(customize(), BabelImport, lessLoader)
+module.exports = override(customize(),addDecoratorsLegacy(), BabelImport, lessLoader)
