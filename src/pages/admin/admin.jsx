@@ -31,7 +31,6 @@ export default class Admin extends Component {
     render() {
         const _user = memoryUtils.user
         if (!_user?._id) {
-            console.log(1)
             /*在render函数里面使用 Redirect 跳回登录的方法*/
             return <Redirect to={'/login'}/>
         }
@@ -46,8 +45,8 @@ export default class Admin extends Component {
                     <Content style={{background:'#fff',margin:'20px'}}>
                         <Switch>
                             <Route path='/home' component={Home}/>
-                            <Route path='/category' component={Category}/>
-                            <Route path='/product' component={Product}/>
+                            <Route path='/products/category' component={Category}/>
+                            <Route path='/products/product' component={Product}/>
                             <Route path='/role' component={Role}/>
                             <Route path='/user' component={User}/>
                             <Route path='/charts/bar' component={Bar}/>

@@ -1,51 +1,73 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
-import {memoryUtils, formateDate} from '../../utils'
+import {memoryUtils, formateDate, removeUserInfo} from '../../utils'
 import {getWeather} from '@/api/header'
+import {Modal} from "antd";
+import {ExclamationCircleOutlined} from '@ant-design/icons';
 import menuConfig from "../../config/menuConfig";
 import './index.less'
+import LinkButton from "../link-button";
 
 @withRouter
 export default class Header extends Component {
     state = {
         day_weather: '',
         currentTime: formateDate(Date.now()),
-        day_wind_direction:'',
+        day_wind_direction: '',
     }
     /*获取天气*/
     getWeather = () => {
         getWeather().then(res => {
-            if(res.status === 200){
-                const {day_weather,day_wind_direction} = res.data.forecast_24h['1']
-                this.setState(()=>({day_weather,day_wind_direction}))
+            if (res.status === 200) {
+                const {day_weather, day_wind_direction} = res.data.forecast_24h['1']
+                this.setState(() => ({day_weather, day_wind_direction}))
             }
         })
     }
     /*获取时间*/
     getCurrentTime = () => {
-        setInterval(() => {
+        this.timer = setInterval(() => {
             const currentTime = formateDate(Date.now())
-            this.setState(()=>({currentTime}))
+            this.setState(() => ({currentTime}))
 
         }, 1000)
 
     }
+    /*退出登录*/
+    loginOut = () => {
+        Modal.confirm({
+            title: '确认退出',
+            icon: <ExclamationCircleOutlined/>,
+            // content: '确认退出？',
+            okText: '确认',
+            cancelText: '取消',
+            onOk: () => {
+                /*清空保存的用户信息*/
+                removeUserInfo()
+                memoryUtils.user = {}
+
+                /*跳转到登录界面*/
+                this.props.history.replace('/login')
+            }
+        });
+    }
     /*获取标题*/
-    getCurrentTitle=()=>{
+    getCurrentTitle = () => {
         let title = ''
         const pathname = this.props.location.pathname
-        menuConfig.forEach(item=>{
-            if(pathname === item.key){
+        menuConfig.forEach(item => {
+            if (pathname === item.key) {
                 title = item.title
-            }else if(item.children?.length){
-                const itemArr = item.children.find(E=>E.key === pathname)
-                if(itemArr){
+            } else if (item.children?.length) {
+                const itemArr = item.children.find(E => E.key === pathname)
+                if (itemArr) {
                     title = itemArr.title
                 }
             }
         })
         return title
     }
+
     componentDidMount() {
         /*获取日期*/
         this.getWeather()
@@ -53,8 +75,13 @@ export default class Header extends Component {
         this.getCurrentTime()
     }
 
+    componentWillUnmount() {
+        /*清空定时器*/
+        clearInterval(this.timer)
+    }
+
     render() {
-        const {currentTime,day_wind_direction,day_weather} = this.state
+        const {currentTime, day_wind_direction, day_weather} = this.state
         const title = this.getCurrentTitle()
         return (
             <div className='Header'>
@@ -62,7 +89,7 @@ export default class Header extends Component {
                     <span>
                         欢迎，{memoryUtils.user.username}
                     </span>
-                    <a href="#!">退出</a>
+                    <LinkButton onClick={this.loginOut}>退出</LinkButton>
                 </div>
                 <div className='header-bottom'>
                     <div className='header-bottom-left'>

@@ -8,6 +8,9 @@ import menuList from "../../config/menuConfig";
 const {SubMenu} = Menu
 @withRouter
 export default class LeftNav extends Component {
+    state = {
+        setOpenKeys: []
+    }
     getMenuList = (list) => {
         return list.map(item => {
             if (!item.children?.length) {
@@ -28,15 +31,20 @@ export default class LeftNav extends Component {
                 </SubMenu>
             }
         })
-
-
-    };
-
+    }
+    onOpenChange = (keys) => {
+        console.log(keys)
+        this.setState(() => ({setOpenKeys: keys}))
+    }
+    clickSubMenu = (item) => {
+        this.setState(state=>({setOpenKeys:[item.key]}))
+    }
 
     render() {
-        console.log(this.props.location.pathname)
         const path = this.props.location.pathname
         const defaultOpenKeys = '/' + this.props.location.pathname.split('/')[1]
+        // this.setState(()=>({setOpenKeys:[defaultOpenKeys]}))
+        const {setOpenKeys} = this.state
         console.log(defaultOpenKeys)
         return (
             <div className='LeftNav'>
@@ -44,7 +52,9 @@ export default class LeftNav extends Component {
                     <img src={logo} alt=""/>
                     <h1>后台管理</h1>
                 </Link>
+
                 <Menu
+
                     selectedKeys={[path]}
                     defaultOpenKeys={[defaultOpenKeys]}
                     mode="inline"
