@@ -41,8 +41,12 @@ export default class LeftNav extends Component {
     }
 
     render() {
-        const path = this.props.location.pathname
+        let path = this.props.location.pathname
         const defaultOpenKeys = '/' + this.props.location.pathname.split('/')[1]
+        if(path.indexOf('/products/product') !== -1){
+            path = '/products/product'
+        }
+        console.log(path)
         // this.setState(()=>({setOpenKeys:[defaultOpenKeys]}))
         const {setOpenKeys} = this.state
         console.log(defaultOpenKeys)

@@ -9,7 +9,7 @@ const {addDecoratorsLegacy, override, fixBabelImports, addLessLoader} = require(
 const customize = () => (config, env) => {
 
     config.resolve.alias['@'] = path.join(__dirname, 'src')
-    config.devServer = {
+   /* config.devServer = {
         proxy:{
             '/api':{
                 target:'http://39.100.225.255:5000',
@@ -22,10 +22,11 @@ const customize = () => (config, env) => {
         headers:{
             'Access-Control-Allow-Origin':'*'
         }
-    }
+    }*/
     console.log(config)
     return config
 }
+/*修改antd主题*/
 const lessLoader = addLessLoader({
     javascriptEnabled: true,
     modifyVars: {'@primary-color': '#1DA57A'}

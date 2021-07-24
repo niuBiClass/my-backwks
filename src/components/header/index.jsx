@@ -59,7 +59,7 @@ export default class Header extends Component {
             if (pathname === item.key) {
                 title = item.title
             } else if (item.children?.length) {
-                const itemArr = item.children.find(E => E.key === pathname)
+                const itemArr = item.children.find(E =>  pathname.indexOf(E.key)!==-1)
                 if (itemArr) {
                     title = itemArr.title
                 }

@@ -40,9 +40,9 @@ export default class Admin extends Component {
                 <Sider>
                     <LeftNav />
                 </Sider>
-                <Layout>
+                <Layout style={{height:"100%"}}>
                     <Header></Header>
-                    <Content style={{background:'#fff',margin:'20px'}}>
+                    <Content style={{background:'#fff',margin:'20px',height:'calc(100% - 182px)',overflow:'auto'}}>
                         <Switch>
                             <Route path='/home' component={Home}/>
                             <Route path='/products/category' component={Category}/>

@@ -47,8 +47,9 @@ textarea {
   margin: 0;
 }
 
-html {
+html,body {
   box-sizing: border-box;
+  height: 100%;
 }
 
 *, *:before, *:after {
