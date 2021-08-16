@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {upload} from '@/api/product'
 import {Upload, Modal} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
-
+/*获取base64*/
 const getBase64 = (file) => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader()
